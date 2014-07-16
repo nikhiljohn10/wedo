@@ -13,4 +13,6 @@ The basic idea is to make a to-do list which can be shared with friends who have
 - Colored Notes
 - Photo tagging
 - Location tagging
+- Voice tagging
 - Local private chat
+- Timeline
