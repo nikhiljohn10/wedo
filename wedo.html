@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang=en manifest=wedo.appcache>
+	<head>
+		<meta charset=utf-8>
+		<meta name=viewport content="width=device-width, user-scalable=no">
+		<title>WeDo</title>
+		<link rel=icon href=favicon.ico type=image/x-icon>
+		<link rel=apple-touch-icon href=img/icons/icon90.png>
+		<link rel=apple-touch-icon sizes=90x90 href=img/icons/icon90.png>
+		<link rel=apple-touch-icon sizes=120x120 href=img/icons/icon120.png>
+		<meta name=apple-mobile-web-app-title content=WeDo>
+		<meta name=mobile-web-app-capable content=yes>
+		<meta name=apple-mobile-web-app-capable content=yes>
+		<meta name=apple-mobile-web-app-status-bar-style content=black-translucent>
+		<meta property=og:title content=WeDo>
+		<meta property=og:url content="http://nikhiljohn10.github.io/wedo/">
+		<meta property=og:image content=http://nikhiljohn10.github.io/wedo/img/logo_share.png>
+		<meta property=og:site_name content=WeDo>
+		<meta property=og:description content="Welcome to WeDo App. See https://github.com/nikhiljohn/wedo for more info.">
+		<link rel="stylesheet" href="css/bootstrap.css">
+	    <link href="css/style.css" rel="stylesheet">
+	    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+
+	</head>
+
+	<body ng-app ng-controller="todoCtrl">
+
+		<h2>My Todo List</h2>
+
+		<form ng-submit="todoAdd()">
+		    <input type="text" ng-model="todoInput" size="50" placeholder="Add New">
+		    <input type="submit" value="Add New">
+		</form>
+
+		<br>
+
+		<div ng-repeat="x in todoList">
+		    <input type="checkbox" ng-change="remove()" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+		</div>
+		<hr>
+		<div ng-repeat="x in oldList">
+		    <input type="checkbox" ng-change="add()" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+		<script>
+		function todoCtrl($scope) {
+		    $scope.todoList = [{todoText:'Clean House', done:false}];
+		    $scope.oldList = [{todoText:'Wash car', done:true}];
+
+		    $scope.todoAdd = function() {
+		        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+		        $scope.todoInput = "";
+		    };
+
+		    $scope.remove = function() {
+		        var temp = $scope.todoList;
+		        $scope.todoList = [];
+		        angular.forEach(temp, function(x) {
+		            if (!x.done) $scope.todoList.push(x);
+		            if (x.done) $scope.oldList.push(x);
+		        });
+		    };
+		    $scope.add = function() {
+		        var temp = $scope.oldList;
+		        $scope.oldList = [];
+		        angular.forEach(temp, function(x) {
+		            if (x.done) $scope.oldList.push(x);
+		            if (!x.done) $scope.todoList.push(x);
+		        });
+		    };
+		}
+		</script>
+
+	</body>
+</html>
