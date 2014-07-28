@@ -42,11 +42,11 @@
 
 		<br>
 
-		<div ng-repeat="x in todoList | orderBy:todoText">
+		<div ng-repeat="x in todoList | orderBy:'todoText'">
 		    <input type="checkbox" ng-change="remove()" ng-model="x.done"> <span ng-bind="x.todoText"></span>
 		</div>
 		<hr>
-		<div ng-repeat="x in oldList | orderBy:todoText">
+		<div ng-repeat="x in oldList | orderBy:'todoText'">
 		    <input type="checkbox" ng-change="add()" ng-model="x.done"> <span ng-bind="x.todoText"></span>
 		</div>
 
